@@ -16,7 +16,7 @@ public class Chat {
     static int nextUserNumber = 1; //Assign to username for next connecting user
 
     public static void broadcastMessage(String sender, String message) {
-
+        final int a = 4;
         userUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
             try {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
