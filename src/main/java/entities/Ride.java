@@ -1,7 +1,6 @@
 package entities;
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,24 +8,30 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by dominik.kotecki on 28-12-2015.
  */
 public class Ride {
-    public static AtomicInteger identity = new AtomicInteger(0);
+    private static AtomicInteger identity = new AtomicInteger(0);
     private final int id;
     private final Person owner;
     private final String from;
     private final String to;
+    private final double price;
     private final Date date;
     private final int amountOfSeats;
     private final List<Person> persons;
 
 
-    public Ride(int id, Person owner, String from, String to, Date date, int amountOfSeats, List<Person> persons) {
+    public Ride(int id, Person owner, String from, String to, double price, Date date, int amountOfSeats, List<Person> persons) {
         this.id = id;
         this.owner = owner;
         this.from = from;
         this.to = to;
+        this.price = price;
         this.date = date;
         this.amountOfSeats = amountOfSeats;
         this.persons = persons;
+    }
+
+    public static int getIdentityId(){
+        return identity.incrementAndGet();
     }
 
     public int getId() {
