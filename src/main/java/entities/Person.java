@@ -1,5 +1,7 @@
 package entities;
 
+import com.google.common.collect.ImmutableList;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,7 +16,7 @@ public class Person {
     private final String lastName;
     private final String email;
     private final String password;
-    private final List<Ride> rides;
+    private final ImmutableList<Ride> rides;
 
     public Person(int id, String firstName, String lastName, String email,String password) {
         this.id = id;
@@ -22,7 +24,7 @@ public class Person {
         this.lastName = lastName;
         this.password = password;
         this.email = email;
-        this.rides = new LinkedList<>();
+        this.rides = ImmutableList.of();
     }
 
     public Person(int id, String firstName, String lastName, String email, String password, List<Ride> rides) {
@@ -31,7 +33,7 @@ public class Person {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.rides = rides;
+        this.rides = ImmutableList.copyOf(rides);
     }
 
     public int getId() {

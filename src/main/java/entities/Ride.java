@@ -1,5 +1,7 @@
 package entities;
 
+import com.google.common.collect.ImmutableList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,7 +18,7 @@ public class Ride {
     private final double price;
     private final Date date;
     private final int amountOfSeats;
-    private final List<Person> persons;
+    private final ImmutableList<Person> persons;
 
 
     public Ride(int id, Person owner, String from, String to, double price, Date date, int amountOfSeats, List<Person> persons) {
@@ -27,7 +29,7 @@ public class Ride {
         this.price = price;
         this.date = date;
         this.amountOfSeats = amountOfSeats;
-        this.persons = persons;
+        this.persons = ImmutableList.copyOf(persons);
     }
 
     public static int getIdentityId(){

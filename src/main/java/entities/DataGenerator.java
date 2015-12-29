@@ -7,10 +7,10 @@ import java.util.List;
  * Created by domin_000 on 28.12.2015.
  */
 public class DataGenerator {
-    private final List<Person> persons;
-    private final List<Ride> rides;
+    public static final List<Person> persons;
+    public static final List<Ride> rides;
 
-    public DataGenerator() {
+    static {
         persons = new LinkedList<>();
         persons.add(new Person(Person.getIdentityId(), "Dominiki", "Kotecki","dominikus1@gmail.com" ,"password"));
         persons.add(new Person(Person.getIdentityId(), "Dominiki1", "Kotecki1","dominikus2@gmail.com" ,"password"));
@@ -19,13 +19,5 @@ public class DataGenerator {
 
         rides = new LinkedList<>();
 
-    }
-
-    public List<Person> getPersons() {
-        return persons;
-    }
-
-    public List<Ride> getRides() {
-        return rides;
     }
 }

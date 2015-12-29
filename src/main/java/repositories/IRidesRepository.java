@@ -5,7 +5,7 @@ import entities.Ride;
 /**
  * Created by domin_000 on 28.12.2015.
  */
-public interface IRidesRepository {
+public interface IRidesRepository extends IRepository {
     Ride create(Ride ride);
     Ride update(Ride ride);
     Ride read(int id);
