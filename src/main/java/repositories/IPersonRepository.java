@@ -11,5 +11,6 @@ import java.util.List;
 public interface IPersonRepository extends IRepository {
     Person Login(String userName, String password);
     Person Register(String userName,String password, String confirmPassword);
+    Person updateAccount(Person person);
     boolean Logout(Person person);
 }

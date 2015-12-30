@@ -11,21 +11,27 @@ import java.util.List;
  * Created by domin_000 on 29.12.2015.
  */
 public class MyStaticDataBase {
-    private final ImmutableList<Person> persons;
-    private final ImmutableList<Ride> rides;
+    private  List<Person> persons;
+    private  List<Ride> rides;
 
     public MyStaticDataBase(List<Person> persons, List<Ride> rides) {
-        this.persons = ImmutableList.copyOf(persons);
-        this.rides = ImmutableList.copyOf(rides);
+        this.persons = persons;
+        this.rides = rides;
     }
 
-    public ImmutableList<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public ImmutableList<Ride> getRides() {
+    public List<Ride>  getRides() {
         return rides;
     }
 
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
 
+    public void setRides(List<Ride> rides) {
+        this.rides = rides;
+    }
 }

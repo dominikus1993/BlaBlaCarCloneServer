@@ -2,6 +2,7 @@ package entities;
 
 import com.google.common.collect.ImmutableList;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -9,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by dominik.kotecki on 28-12-2015.
  */
-public class Person {
+public class Person implements Serializable {
     private static AtomicInteger identity = new AtomicInteger(0);
     private final int id;
     private final String firstName;
@@ -59,5 +60,9 @@ public class Person {
 
     public List<Ride> getRides() {
         return rides;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }
