@@ -1,10 +1,9 @@
 package repositories;
 
 import entities.Person;
+import entities.Result;
 import utils.MyStaticDataBase;
 
-import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -17,27 +16,27 @@ public class PersonRepository extends BaseRepository implements IPersonRepositor
     }
 
     @Override
-    public Person Login(String userName, String password) {
+    public Result<Person> Login(String userName, String password) {
         try{
-            return getDataBase().getPersons().parallelStream().filter(person -> Objects.equals(person.getEmail(), userName) && person.getPassword().equals(password)).findAny().get();
+            return new Result<>(getDataBase().getPersons().parallelStream().filter(person -> person.getEmail().equals(userName) && person.getPassword().equals(password)).findAny().get());
         }catch (Exception ex){
-            return null;
+            return new Result<>();
         }
 
     }
 
     @Override
-    public Person Register(String userName, String password, String confirmPassword) {
+    public Result<Person> Register(String userName, String password, String confirmPassword) {
         if (password.equals(confirmPassword) && getDataBase().getPersons().parallelStream().filter(person -> person.getEmail().equals(userName)).toArray().length == 0){
             Person personToAdd = new Person(Person.getIdentityId(), null, null, userName , password);
             getDataBase().getPersons().add(personToAdd);
-            return personToAdd;
+            return new Result<>(personToAdd);
         }
-        return null;
+        return new Result<>();
     }
 
     @Override
-    public Person updateAccount(Person person) {
+    public Result<Person> updateAccount(Person person) {
         getDataBase().setPersons(getDataBase().getPersons().stream().map(person1 -> {
             if (person.getId() == person.getId()){
                 return new Person(person.getId(), person.getFirstName(), person.getLastName(), person.getEmail(), person.getPassword(), person.getRides());
@@ -46,11 +45,11 @@ public class PersonRepository extends BaseRepository implements IPersonRepositor
                 return person1;
             }
         }).collect(Collectors.toList()));
-        return person;
+        return new Result<>(person);
     }
 
     @Override
-    public boolean Logout(Person person) {
-        return false;
+    public Result<Boolean> Logout(Person person) {
+        return new Result<>(false);
     }
 }
