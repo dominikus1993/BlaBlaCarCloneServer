@@ -6,7 +6,7 @@ import repositories.IPersonRepository;
 /**
  * Created by dominik.kotecki on 04-01-2016.
  */
-public class BaseController {
+public abstract class BaseController {
     private final IAuthenticationRepository authenticationRepository;
 
     public BaseController(IAuthenticationRepository authenticationRepository) {
