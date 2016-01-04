@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +19,6 @@ public class DataGenerator {
         persons.add(new Person(Person.getIdentityId(), "Dominiki3", "Kotecki3","dominikus3@gmail.com" ,"password"));
 
         rides = new LinkedList<>();
-
+        rides.add(new Ride(Ride.getIdentityId(), persons.get(0), "Warszawa", "Kielce", 21.1, new Date(), 5));
     }
 }

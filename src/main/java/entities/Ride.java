@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,6 +32,17 @@ public class Ride implements Serializable{
         this.date = date;
         this.amountOfSeats = amountOfSeats;
         this.persons = ImmutableList.copyOf(persons);
+    }
+
+    public Ride(int id, Person owner, String from, String to, double price, Date date, int amountOfSeats) {
+        this.id = id;
+        this.owner = owner;
+        this.from = from;
+        this.to = to;
+        this.price = price;
+        this.date = date;
+        this.amountOfSeats = amountOfSeats;
+        this.persons = ImmutableList.copyOf(new LinkedList<>());
     }
 
     public static int getIdentityId(){
@@ -65,4 +77,7 @@ public class Ride implements Serializable{
         return persons;
     }
 
+    public int getIdForNewEntity(){
+        return identity.incrementAndGet();
+    }
 }
