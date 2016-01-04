@@ -33,7 +33,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
     public Result<Ride> update(UpdateRide ride) {
         getDataBase().setRides(getDataBase().getRides().stream().map(ride1 -> {
             if (ride1.getId() == ride.getId()){
-                return new Ride(ride1.getId(), ride.getOwner(), ride.getFrom(), ride.getTo(), ride.getPrice(), ride.getDate(), ride.getAmountOfSeats(),ride1.getPersons());
+                return new Ride(ride1.getId(), ride1.getOwner(), ride.getFrom(), ride.getTo(), ride.getPrice(), ride.getDate(), ride.getAmountOfSeats(),ride1.getPersons());
             }
             return ride1;
         }).collect(Collectors.toList()));

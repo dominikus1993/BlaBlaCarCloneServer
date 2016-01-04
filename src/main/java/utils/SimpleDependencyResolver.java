@@ -1,10 +1,7 @@
 package utils;
 
 import entities.DataGenerator;
-import repositories.IPersonRepository;
-import repositories.IRidesRepository;
-import repositories.PersonRepository;
-import repositories.RidesRepository;
+import repositories.*;
 
 /**
  * Created by domin_000 on 29.12.2015.
@@ -23,5 +20,9 @@ public class SimpleDependencyResolver {
 
     public static IRidesRepository getIRidesRepository(){
         return new RidesRepository(getMyStaticDataBase());
+    }
+
+    public static IAuthenticationRepository getIAuthenticationRepository(){
+        return new AuthenticationRepository(getMyStaticDataBase());
     }
 }

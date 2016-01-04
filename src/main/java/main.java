@@ -5,6 +5,7 @@
 import controllers.RideController;
 import controllers.UserController;
 import entities.DataGenerator;
+import repositories.IAuthenticationRepository;
 import repositories.IPersonRepository;
 import repositories.IRidesRepository;
 import utils.MyStaticDataBase;
@@ -17,11 +18,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MyStaticDataBase dataBase = new MyStaticDataBase(DataGenerator.persons, DataGenerator.rides);
         IPersonRepository personRepository = SimpleDependencyResolver.GetIPersonRepository();
         IRidesRepository ridesRepository = SimpleDependencyResolver.getIRidesRepository();
-        UserController userController = new UserController(personRepository);
-        RideController rideController = new RideController(ridesRepository);
+        IAuthenticationRepository authenticationRepository = SimpleDependencyResolver.getIAuthenticationRepository();
+
+        UserController userController = new UserController(personRepository,authenticationRepository);
+        RideController rideController = new RideController(ridesRepository, authenticationRepository);
 
         SetUpRoutes routes = new SetUpRoutes(userController, rideController);
 
