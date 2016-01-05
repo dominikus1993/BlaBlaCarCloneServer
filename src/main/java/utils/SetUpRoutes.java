@@ -8,6 +8,7 @@ import spark.Request;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.put;
 
 /**
  * Created by domin_000 on 03.01.2016.
@@ -24,14 +25,14 @@ public class SetUpRoutes {
     public void setUp(){
         //User
         get("/user/login/:login/password/:password", (userController::Login));
-
-        post("user/register", userController::Register);
+        post("/user/register", userController::Register);
 
 
         //Rides
         get("/rides/all", rideController::get);
+        get("/rides/:id", rideController::getById);
         post("/rides/create", rideController::create);
-
+        put("/rides/update", (rideController::update));
     }
 
 

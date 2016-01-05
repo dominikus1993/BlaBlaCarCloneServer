@@ -30,7 +30,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
     }
 
     @Override
-    public Result<Ride> update(UpdateRide ride) {
+    public synchronized Result<Ride> update(UpdateRide ride) {
         getDataBase().setRides(getDataBase().getRides().stream().map(ride1 -> {
             if (ride1.getId() == ride.getId()){
                 return new Ride(ride1.getId(), ride1.getOwner(), ride.getFrom(), ride.getTo(), ride.getPrice(), ride.getDate(), ride.getAmountOfSeats(),ride1.getPersons());
@@ -46,13 +46,17 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
     }
 
     @Override
-    public Ride read(int id) {
-        return null;
+    public Result<Ride> read(int id) {
+        try {
+            return new Result<>(getDataBase().getRides().parallelStream().filter(ride -> ride.getId() == id).findAny().get());
+        }catch (Exception ex){
+            return new Result<>();
+        }
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public Result<Boolean> delete(int id) {
+        return new Result<>(false);
     }
 
     @Override

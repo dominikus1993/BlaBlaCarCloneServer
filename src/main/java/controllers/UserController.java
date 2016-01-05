@@ -35,9 +35,14 @@ public class UserController extends BaseController {
     }
 
     public String Register(Request request, Response response) {
-        RegisterUser user = gson.fromJson(request.body(), RegisterUser.class);
-        Result<Person> personResult = repository.Register(user.getUsername(), user.getPassword(), user.getConfirmPassword());
-        return gson.toJson(personResult);
+        try{
+            RegisterUser user = gson.fromJson(request.body(), RegisterUser.class);
+            Result<Person> personResult = repository.Register(user.getUsername(), user.getPassword(), user.getConfirmPassword());
+            return gson.toJson(personResult);
+        }catch(Exception ex){
+            return gson.toJson(new Result<>(false, true , Result.CreateMessagesList("Invlid data format")));
+        }
+
     }
 
 }

@@ -25,15 +25,26 @@ public class RideController extends BaseController{
        return gson.toJson(ridesRepository.get());
     }
 
+    public String getById(Request request, Response response){
+        try {
+            return gson.toJson(ridesRepository.read(Integer.parseInt(request.params(":id"))));
+        }catch (Exception ex){
+            response.status(404);
+            return gson.toJson(new Result<>(false, true, Result.CreateMessagesList("Bad Request")));
+        }
+    }
+
     public String create(Request request, Response response){
         try {
             Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
-            if (authenticatedUser.isSuccess()) {
+            if (!authenticatedUser.isSuccess()) {
                 return gson.toJson(new Result<Ride>(false, true, Result.CreateMessagesList("Unauthorized access")));
             }
+            String a = request.body();
             CreatedRide rideToCreate = gson.fromJson(request.body(), CreatedRide.class);
             return gson.toJson(ridesRepository.create(new Ride(Ride.getIdentityId(), authenticatedUser.getValue(), rideToCreate.getFrom(), rideToCreate.getTo(), rideToCreate.getPrice(), rideToCreate.getDate(), rideToCreate.getAmountOfSeats())));
         }catch (Exception ex){
+            response.status(404);
             return gson.toJson(new Result<>());
         }
 
@@ -43,14 +54,20 @@ public class RideController extends BaseController{
         try {
             Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
             UpdateRide updateRide = gson.fromJson(request.body(), UpdateRide.class);
-            Ride ride = ridesRepository.read(updateRide.getId());
-            if (authenticatedUser.isSuccess() && ride.getOwner().getId() == authenticatedUser.getValue().getId()) {
+            Result<Ride> ride = ridesRepository.read(updateRide.getId());
+            if (authenticatedUser.isSuccess() && ride.isSuccess() && ride.getValue().getOwner().getId() == authenticatedUser.getValue().getId()) {
                 return gson.toJson(ridesRepository.update(updateRide));
             }
         }
         catch (Exception ex){
+            response.status(404);
             return gson.toJson(new Result<>());
         }
+        response.status(404);
         return gson.toJson(new Result<>());
+    }
+
+    public String delete(Request request, Response response){
+        return "";
     }
 }
