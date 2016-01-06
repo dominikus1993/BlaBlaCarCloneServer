@@ -1,0 +1,11 @@
+{
+  "name": "bla",
+  "version": "1.0.0",
+  "description": "hle hle hle",
+  "main": "users.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
