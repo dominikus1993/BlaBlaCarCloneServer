@@ -6,10 +6,7 @@ import entities.Ride;
 import entities.UpdateRide;
 import utils.MyStaticDataBase;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,7 +73,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
             if (!isPassenger && ride.getPersons().size() <= ride.getAmountOfSeats()){
                 getDataBase().setRides(getDataBase().getRides().stream().map(ride1 -> {
                     if (ride1.getId() == id){
-                        List<Person> persons = new LinkedList<>(Arrays.asList(getDataBase().getPersons().parallelStream().filter(x -> x.getId() == personId).findAny().get()));
+                        List<Person> persons = new LinkedList<>(Collections.singletonList(getDataBase().getPersons().parallelStream().filter(x -> x.getId() == personId).findAny().get()));
                         return new Ride(ride1.getId(),ride1.getOwner(),ride1.getFrom(), ride1.getTo(), ride1.getAmountOfSeats(), ride1.getDate(), ride1.getAmountOfSeats(),Stream.concat(ride1.getPersons().stream(), persons.stream()).collect(Collectors.toList()));
                     }
                     else {

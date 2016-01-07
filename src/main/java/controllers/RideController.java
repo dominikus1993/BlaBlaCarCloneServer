@@ -29,7 +29,7 @@ public class RideController extends BaseController{
             return gson.toJson(ridesRepository.read(Integer.parseInt(request.params(":id"))));
         }catch (Exception ex){
             response.status(404);
-            return gson.toJson(new Result<>(false, true, Result.CreateMessagesList("Bad Request")));
+            return gson.toJson(Result.Error("Bad Request"));
         }
     }
 
@@ -43,7 +43,7 @@ public class RideController extends BaseController{
             return gson.toJson(ridesRepository.create(new Ride(Ride.getIdentityId(), authenticatedUser.getValue(), rideToCreate.getFrom(), rideToCreate.getTo(), rideToCreate.getPrice(), rideToCreate.getDate(), rideToCreate.getAmountOfSeats())));
         }catch (Exception ex){
             response.status(404);
-            return gson.toJson(new Result<>());
+            return gson.toJson(Result.Error());
         }
 
     }
@@ -59,10 +59,10 @@ public class RideController extends BaseController{
         }
         catch (Exception ex){
             response.status(404);
-            return gson.toJson(new Result<>());
+            return gson.toJson(Result.Error());
         }
         response.status(404);
-        return gson.toJson(new Result<>());
+        return gson.toJson(Result.Error());
     }
 
     public String delete(Request request, Response response)
@@ -76,9 +76,9 @@ public class RideController extends BaseController{
             }
 
         }catch (Exception ex){
-            return gson.toJson(new Result<>());
+            return gson.toJson(Result.Error());
         }
-        return gson.toJson(new Result<>(false, true, Result.CreateMessagesList("Unauthorized access")));
+        return gson.toJson(Result.Error());
     }
 
     public String join(Request request, Response response){
