@@ -80,4 +80,38 @@ public class Ride implements Serializable{
     public int getIdForNewEntity(){
         return identity.incrementAndGet();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ride ride = (Ride) o;
+
+        if (id != ride.id) return false;
+        if (Double.compare(ride.price, price) != 0) return false;
+        if (amountOfSeats != ride.amountOfSeats) return false;
+        if (owner != null ? !owner.equals(ride.owner) : ride.owner != null) return false;
+        if (from != null ? !from.equals(ride.from) : ride.from != null) return false;
+        if (to != null ? !to.equals(ride.to) : ride.to != null) return false;
+        if (date != null ? !date.equals(ride.date) : ride.date != null) return false;
+        return persons != null ? persons.equals(ride.persons) : ride.persons == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + (owner != null ? owner.hashCode() : 0);
+        result = 31 * result + (from != null ? from.hashCode() : 0);
+        result = 31 * result + (to != null ? to.hashCode() : 0);
+        temp = Double.doubleToLongBits(price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + amountOfSeats;
+        result = 31 * result + (persons != null ? persons.hashCode() : 0);
+        return result;
+    }
 }

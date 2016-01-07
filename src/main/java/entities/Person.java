@@ -65,4 +65,31 @@ public class Person implements Serializable {
     public String getLastName() {
         return lastName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (id != person.id) return false;
+        if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) return false;
+        if (email != null ? !email.equals(person.email) : person.email != null) return false;
+        if (password != null ? !password.equals(person.password) : person.password != null) return false;
+        return rides != null ? rides.equals(person.rides) : person.rides == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (rides != null ? rides.hashCode() : 0);
+        return result;
+    }
 }

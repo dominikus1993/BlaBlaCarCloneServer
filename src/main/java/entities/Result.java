@@ -64,6 +64,10 @@ public class Result<T> {
     public T getValue() {
         return value;
     }
+
+    public static Result Error(String ...messages){
+        return new Result(false, true, CreateMessagesList(messages));
+    }
 }
 
 

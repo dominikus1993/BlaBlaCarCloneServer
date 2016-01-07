@@ -6,7 +6,6 @@ import repositories.IAuthenticationRepository;
 import repositories.IRidesRepository;
 import spark.Request;
 import spark.Response;
-import utils.UserUtils;
 
 /**
  * Created by dominik.kotecki on 04-01-2016.
@@ -37,10 +36,9 @@ public class RideController extends BaseController{
     public String create(Request request, Response response){
         try {
             Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
-            if (!authenticatedUser.isSuccess()) {
+            if (!isAuthenticated(request)) {
                 return gson.toJson(new Result<Ride>(false, true, Result.CreateMessagesList("Unauthorized access")));
             }
-            String a = request.body();
             CreatedRide rideToCreate = gson.fromJson(request.body(), CreatedRide.class);
             return gson.toJson(ridesRepository.create(new Ride(Ride.getIdentityId(), authenticatedUser.getValue(), rideToCreate.getFrom(), rideToCreate.getTo(), rideToCreate.getPrice(), rideToCreate.getDate(), rideToCreate.getAmountOfSeats())));
         }catch (Exception ex){
@@ -55,7 +53,7 @@ public class RideController extends BaseController{
             Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
             UpdateRide updateRide = gson.fromJson(request.body(), UpdateRide.class);
             Result<Ride> ride = ridesRepository.read(updateRide.getId());
-            if (authenticatedUser.isSuccess() && ride.isSuccess() && ride.getValue().getOwner().getId() == authenticatedUser.getValue().getId()) {
+            if (isOwner(authenticatedUser, ride)) {
                 return gson.toJson(ridesRepository.update(updateRide));
             }
         }
@@ -67,7 +65,47 @@ public class RideController extends BaseController{
         return gson.toJson(new Result<>());
     }
 
-    public String delete(Request request, Response response){
-        return "";
+    public String delete(Request request, Response response)
+    {
+        try {
+            int id = Integer.parseInt(request.params(":id"));
+            Result<Person> userResult = getAuthenticationRepository().findByToken(request);
+            Result<Ride> rideResult = ridesRepository.read(id);
+            if (isOwner(userResult, rideResult)){
+                return gson.toJson(ridesRepository.delete(id));
+            }
+
+        }catch (Exception ex){
+            return gson.toJson(new Result<>());
+        }
+        return gson.toJson(new Result<>(false, true, Result.CreateMessagesList("Unauthorized access")));
     }
+
+    public String join(Request request, Response response){
+        try{
+            if (isAuthenticated(request)){
+                int rideId = Integer.parseInt(request.params(":id"));
+                int personId = Integer.parseInt(request.params(":personId"));
+                response.status(200);
+                return gson.toJson(ridesRepository.join(rideId,personId));
+            }else{
+                response.status(404);
+                return gson.toJson(Result.Error("Unauthorized access"));
+            }
+        }catch(Exception ex){
+            response.status(404);
+            return gson.toJson(Result.Error("Bad Request"));
+        }
+
+    }
+
+    private boolean isAuthenticated(Request request){
+        Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
+        return authenticatedUser.isSuccess();
+    }
+
+    private boolean isOwner(Result<Person> userResult, Result<Ride> rideResult) {
+        return userResult.isSuccess() && rideResult.isSuccess() && rideResult.getValue().getOwner().getId() == userResult.getValue().getId();
+    }
+
 }
