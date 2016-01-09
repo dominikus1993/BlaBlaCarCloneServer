@@ -3,14 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>BlaBlaCar</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
-<div id="chatControls">
-    <input id="message" placeholder="Type your message">
-    <button id="send">Send</button>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand">Travel assistant</a>
+        </div>
+        <div id="loginPanel" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="www.facebook.pl">facebook</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="logOff">
+                <li style="color: white;" data-bind="visible: isLogged"><a href="#">Witaj! <i data-bind="text: login"></i></a></li>
+                <li><button class="btn btn-primary" data-bind="visible: isLogged, click: logout">Wyloguj się</button></li>
+            </ul>
+            <form class="navbar-form navbar-right" role="search" id="loginForm" data-bind="visible: isNotLogged">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="loginData.UserName" placeholder="Username" data-bind="value: login" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="loginData.Password" placeholder="Password" data-bind="value: password" required >
+                </div>
+                <button type="submit" class="btn btn-primary" data-bind="click: loginUser">Zaloguj się</button>
+                <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+            </form>
+        </div>
+    </div>
 </div>
-<ul id="userlist"> <!-- Built by JS --> </ul>
-<div id="chat">    <!-- Built by JS --> </div>
-<script src="js/users.js"></script>
+
+
+
+<script src="bower_components/knockout/dist/knockout.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="js/main-compiled.js"></script>
 </body>
 </html>

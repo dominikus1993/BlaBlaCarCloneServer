@@ -5,6 +5,7 @@ import spark.Request;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * Created by dominik.kotecki on 04-01-2016.
@@ -26,10 +27,7 @@ public class UserUtils {
         return request.session().attribute(USER_SESSION_ID);
     }
 
-    public static String GenerateAuthenticationToken() {
-        SecureRandom random = new SecureRandom();
-        byte bytes[] = new byte[20];
-        random.nextBytes(bytes);
-        return Arrays.toString(bytes);
+    public static String GenerateAuthenticationToken(String userName) {
+        return UUID.randomUUID().toString() + "|" + userName + "|" + UUID.randomUUID().toString();
     }
 }

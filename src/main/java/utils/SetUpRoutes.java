@@ -25,7 +25,6 @@ public class SetUpRoutes {
         get("/user/login/:login/password/:password", (userController::Login));
         post("/user/register", userController::Register);
 
-
         //Rides
         get("/rides/all", rideController::get);
         get("/rides/:id", rideController::getById);

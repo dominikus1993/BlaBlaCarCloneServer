@@ -23,7 +23,7 @@ public class AuthenticationRepository extends BaseRepository implements IAuthent
 
     @Override
     public Result<String> create(Person person) {
-        String token = UserUtils.GenerateAuthenticationToken();
+        String token = UserUtils.GenerateAuthenticationToken(person.getEmail());
         getDataBase().getAuthTokens().put(token, person);
         Person addedPerson = getDataBase().getAuthTokens().put(token, person);
         return addedPerson == null ? new Result<>() : new Result<>(token);
