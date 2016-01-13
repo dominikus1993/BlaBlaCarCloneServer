@@ -1,5 +1,6 @@
 package entities;
 
+import com.google.gson.annotations.Expose;
 import com.sun.corba.se.spi.orbutil.fsm.Guard;
 
 import java.util.ArrayList;
@@ -12,9 +13,16 @@ import java.util.List;
  */
 public class Result<T> {
 
+    @Expose
     private final boolean isSuccess;
+
+    @Expose
     private final boolean isError;
+
+    @Expose
     private final List<String> messages;
+
+    @Expose
     private final T value;
 
     public Result() {

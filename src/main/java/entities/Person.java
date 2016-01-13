@@ -1,6 +1,7 @@
 package entities;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -12,11 +13,22 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Person implements Serializable {
     private static AtomicInteger identity = new AtomicInteger(0);
+
+    @Expose
     private final int id;
+
+    @Expose
     private final String firstName;
+
+    @Expose
     private final String lastName;
+
+    @Expose
     private final String email;
+
     private final String password;
+
+    @Expose
     private final ImmutableList<Ride> rides;
 
     public Person(int id, String firstName, String lastName, String email,String password) {

@@ -31,7 +31,7 @@ public class SetUpRoutes {
         post("/rides/create", rideController::create);
         put("/rides/update", (rideController::update));
         delete("/rides/delete/:id", rideController::delete);
-        get("/rides/ride/:id/person/:personId", rideController::join);
+        get("/rides/ride/:id/join", rideController::join);
     }
 
 

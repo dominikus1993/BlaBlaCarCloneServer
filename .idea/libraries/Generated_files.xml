@@ -2,15 +2,37 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/src/main/resources/public/js/urls-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/lib/json2-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/issues-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/main/resources/public/js/main-compiled.js" />
-        <item url="file://$PROJECT_DIR$/src/main/resources/public/js/model-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/tools/searchReplace-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/lib/qunit-1.10.0-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/mappingBehaviors-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/proxyDependentObservableBehaviors-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/underscore/underscore-min-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/version-header-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/underscore/underscore-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/output/knockout.mapping-latest-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/output/knockout.mapping-latest.debug-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/knockout.mapping-compiled.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/src/main/resources/public/js/urls-compiled.js" />
-      <root url="file://$PROJECT_DIR$/src/main/resources/public/js/main-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/main/resources/public/js/model-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/lib/json2-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/issues-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/js/main-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/tools/searchReplace-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/lib/qunit-1.10.0-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/mappingBehaviors-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/spec/proxyDependentObservableBehaviors-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/underscore/underscore-min-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/version-header-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/underscore/underscore-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/output/knockout.mapping-latest-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/build/output/knockout.mapping-latest.debug-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/public/bower_components/knockout-mapping/knockout.mapping-compiled.js" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

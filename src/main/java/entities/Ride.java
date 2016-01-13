@@ -1,6 +1,7 @@
 package entities;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,13 +14,29 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Ride implements Serializable{
     private static AtomicInteger identity = new AtomicInteger(0);
+
+    @Expose
     private final int id;
+
+    @Expose
     private final Person owner;
+
+    @Expose
     private final String from;
+
+    @Expose
     private final String to;
+
+    @Expose
     private final double price;
+
+    @Expose
     private final Date date;
+
+    @Expose
     private final int amountOfSeats;
+
+    @Expose
     private final ImmutableList<Person> persons;
 
 

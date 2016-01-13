@@ -19,6 +19,8 @@
   "devDependencies":{
     "knockout": "~3.4.0",
     "jquery": "~2.1.4",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "knockout-mapping":"~2.4.1",
+    "underscore":"~1.8.3"
   }
 }

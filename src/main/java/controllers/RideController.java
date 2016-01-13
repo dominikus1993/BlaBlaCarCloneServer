@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entities.*;
 import repositories.IAuthenticationRepository;
 import repositories.IRidesRepository;
@@ -17,7 +18,9 @@ public class RideController extends BaseController{
     public RideController(IRidesRepository ridesRepository, IAuthenticationRepository authenticationRepository) {
         super(authenticationRepository);
         this.ridesRepository = ridesRepository;
-        this.gson = new Gson();
+        final GsonBuilder builder = new GsonBuilder();
+        builder.excludeFieldsWithoutExposeAnnotation();
+        this.gson = builder.create();
     }
 
     public String get(Request request, Response response){
@@ -83,9 +86,10 @@ public class RideController extends BaseController{
 
     public String join(Request request, Response response){
         try{
-            if (isAuthenticated(request)){
-                int rideId = Integer.parseInt(request.params(":id"));
-                int personId = Integer.parseInt(request.params(":personId"));
+            Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
+            if (authenticatedUser.isSuccess()){
+                final int rideId = Integer.parseInt(request.params(":id"));
+                final int personId = authenticatedUser.getValue().getId();
                 response.status(200);
                 return gson.toJson(ridesRepository.join(rideId,personId));
             }else{

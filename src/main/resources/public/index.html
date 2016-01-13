@@ -21,15 +21,20 @@
                 <li><a href="www.facebook.pl">facebook</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="logOff">
-                <li style="color: white;" data-bind="visible: isLogged"><a href="#">Witaj! <i data-bind="text: login"></i></a></li>
-                <li><button class="btn btn-primary" data-bind="visible: isLogged, click: logout">Wyloguj się</button></li>
+                <li style="color: white;" data-bind="visible: isLogged"><a href="#">Witaj! <i
+                        data-bind="text: login"></i></a></li>
+                <li>
+                    <button class="btn btn-primary" data-bind="visible: isLogged, click: logout">Wyloguj się</button>
+                </li>
             </ul>
             <form class="navbar-form navbar-right" role="search" id="loginForm" data-bind="visible: isNotLogged">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="loginData.UserName" placeholder="Username" data-bind="value: login" required>
+                    <input type="text" class="form-control" name="loginData.UserName" placeholder="Username"
+                           data-bind="value: login" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="loginData.Password" placeholder="Password" data-bind="value: password" required >
+                    <input type="password" class="form-control" name="loginData.Password" placeholder="Password"
+                           data-bind="value: password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" data-bind="click: loginUser">Zaloguj się</button>
                 <button type="submit" class="btn btn-primary">Zarejestruj się</button>
@@ -38,11 +43,43 @@
     </div>
 </div>
 
+<p></p>
+<div class="container">
+    <div class="row">
+        <table class="table col-md-12" id="rides">
+            <caption>Przejazdy</caption>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Z</th>
+                <th>Do</th>
+                <th>Cena</th>
+                <th>Data</th>
+                <th>Ilość miejsc</th>
+                <th>Dołącz</th>
+            </tr>
+            </thead>
+            <tbody data-bind="foreach:rides">
+            <tr>
+                <th scope="row" data-bind="text: id">15</th>
+                <td data-bind="text: from">Mark</td>
+                <td data-bind="text: to">Otto</td>
+                <td data-bind="text: price">Otto</td>
+                <td data-bind="text: date">Otto</td>
+                <td data-bind="text: amountOfSeats">Otto</td>
+                <td><button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}">Dołącz</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
+</div>
 
 <script src="bower_components/knockout/dist/knockout.js"></script>
+<script src="bower_components/knockout-mapping/knockout.mapping.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
 <script src="js/main-compiled.js"></script>
 </body>
 </html>

@@ -15,6 +15,6 @@ public interface IRidesRepository extends IRepository {
     Result<Ride> update(UpdateRide ride);
     Result<Ride> read(int id);
     Result<Boolean> delete(int id);
-    Result join(int id, int personId);
+    Result<Ride> join(int id, int personId);
     Result<Ride> unJoin(int id, int personId);
 }
