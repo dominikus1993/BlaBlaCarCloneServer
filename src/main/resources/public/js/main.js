@@ -89,13 +89,11 @@ class RideViewModel{
             contentType: "application/json;charset=utf-8",
             headers: { "Authorization": getTokenValue() },
             success : (data) => {
-                console.log(data)
-                if(data.isSuccess){
-                    console.log("siema");
+                const jsonData = JSON.parse(data);
+                if(jsonData.isSuccess){
                     this.rides(_.map(this.rides(), (ride) => {
-                        console.log(`${ride} <-> ${data}`);
-                        if(ride.id == data.value.id){
-                            return new Ride(data.value);
+                        if(ride.id == jsonData.value.id){
+                            return new Ride(jsonData.value);
                         }
                         else{
                             return ride;
