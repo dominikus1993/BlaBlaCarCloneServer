@@ -10,6 +10,7 @@ const joinUrl = (rideId) => `/rides/ride/${rideId}/join`;
 
 
 const getTokenValue = () => sessionStorage.getItem(tokenKey);
+const getAccountKey = () => sessionStorage.getItem(accountKey);
 
 class Person{
     constructor(data){
@@ -25,13 +26,23 @@ class Person{
 class Ride{
     constructor(data){
         this.id = 0;
+        this.owner = "";
         this.from = "";
         this.to = "";
         this.price = 0.0;
         this.date = new Date();
         this.amountOfSeats = 0;
-        this.rides = [];
+        this.persons = [];
+
         ko.mapping.fromJS(data, {}, this);
+
+        this.isNotFull = ko.computed(() => {
+            return this.persons.length !== this.amountOfSeats;
+        });
+
+        this.userJoined = ko.computed(() => {
+            return this.persons.filter(x => x.email() == getAccountKey()).length === 0;
+        })
     }
 }
 
@@ -50,6 +61,11 @@ class RideViewModel{
     constructor(){
         this.rideToAdd = ko.observable(new RideToAdd());
         this.rides = ko.observable([]);
+
+        this.isLogged = ko.computed(() => {
+            return getTokenValue() != null
+        });
+
         this.getAll();
         this.bind();
     }
@@ -73,16 +89,18 @@ class RideViewModel{
             contentType: "application/json;charset=utf-8",
             headers: { "Authorization": getTokenValue() },
             success : (data) => {
-                console.log(data);
+                console.log(data)
                 if(data.isSuccess){
-                    this.rides(_.map(this.rides, (ride) => {
+                    console.log("siema");
+                    this.rides(_.map(this.rides(), (ride) => {
+                        console.log(`${ride} <-> ${data}`);
                         if(ride.id == data.value.id){
                             return new Ride(data.value);
                         }
                         else{
                             return ride;
                         }
-                    }))
+                    }));
                 }
             }
         });

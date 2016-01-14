@@ -44,35 +44,79 @@
 </div>
 
 <p></p>
-<div class="container">
-    <div class="row">
-        <table class="table col-md-12" id="rides">
-            <caption>Przejazdy</caption>
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Z</th>
-                <th>Do</th>
-                <th>Cena</th>
-                <th>Data</th>
-                <th>Ilość miejsc</th>
-                <th>Dołącz</th>
-            </tr>
-            </thead>
-            <tbody data-bind="foreach:rides">
-            <tr>
-                <th scope="row" data-bind="text: id">15</th>
-                <td data-bind="text: from">Mark</td>
-                <td data-bind="text: to">Otto</td>
-                <td data-bind="text: price">Otto</td>
-                <td data-bind="text: date">Otto</td>
-                <td data-bind="text: amountOfSeats">Otto</td>
-                <td><button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}">Dołącz</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container" id="rides">
 
+    <div class="row" data-bind="foreach:rides">
+        <div class="col-md-8">
+            <table class="table col-md-12">
+                <caption>Przejazdy</caption>
+                <thead>
+                </thead>
+                <tbody>
+                <tr data-bind="with: owner">
+                    <th scope="row">Użytkownik </th>
+                    <td data-bind="text: email">Mark</td>
+                </tr>
+                <tr>
+                    <th scope="row">Odjazd z: </th>
+                    <td data-bind="text: from">Mark</td>
+                </tr>
+                <tr>
+                    <th scope="row">Dojazd do: </th>
+                    <td data-bind="text: to">Otto</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cena</th>
+                    <td data-bind="text: price">Otto</td>
+                </tr>
+                <tr>
+                    <th scope="row">Data odjazdu</th>
+                    <td data-bind="text: date">Otto</td>
+                </tr>
+                <tr>
+                    <th scope="row">Ilość dostępnych miejsc</th>
+                    <td data-bind="text: amountOfSeats">Otto</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table col-md-12" data-bind="visible: persons.length > 0">
+                <caption>Pasażerowie</caption>
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Id</th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach:persons">
+                <tr>
+                    <th scope="row" data-bind="text:id">Odjazd z: </th>
+                    <td data-bind="text: email">Mark</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table col-md-12" data-bind="visible: persons.length === 0">
+                <caption>Pasażerowie</caption>
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Id</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Brak </th>
+                    <td>Pasażerów</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}, enable :$root.isLogged && isNotFull() && userJoined()">Dołącz</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="bower_components/knockout/dist/knockout.js"></script>
