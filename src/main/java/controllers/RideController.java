@@ -19,6 +19,7 @@ public class RideController extends BaseController{
         super(authenticationRepository);
         this.ridesRepository = ridesRepository;
         final GsonBuilder builder = new GsonBuilder();
+        builder.setDateFormat("yyyy-MM-dd'T'HH:mm");
         builder.excludeFieldsWithoutExposeAnnotation();
         this.gson = builder.create();
     }

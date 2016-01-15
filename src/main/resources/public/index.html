@@ -18,7 +18,6 @@
         </div>
         <div id="loginPanel" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="www.facebook.pl">facebook</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="logOff">
                 <li style="color: white;" data-bind="visible: isLogged"><a href="#">Witaj! <i
@@ -43,8 +42,36 @@
     </div>
 </div>
 
-<p></p>
+
+<h1>BlablaCar</h1>
+
 <div class="container" id="rides">
+
+    <div class="row" data-bind="visible: isLogged">
+        <form class="col-md-12" data-bind="submit:add, with: rideToAdd">
+            <div>
+                <label for="from">Odjazd z: </label>
+                <input id="from" type="text" class="form-control" data-bind="value: from" placeholder="wpisz miejscowość z której wyruszasz" required>
+            </div>
+            <div>
+                <label for="to">Dojazd do: </label>
+                <input id="to" type="text" class="form-control" data-bind="value: to" placeholder="wpisz miejscowość która jes celm twojej podróży" required>
+            </div>
+            <div>
+                <label for="price">Cena: </label>
+                <input id="price" type="number" class="form-control" data-bind="value: price" min="0.01" max="25000" value="1.0" required>
+            </div>
+            <div>
+                <label for="date">Data: </label>
+                <input id="date" type="datetime-local" class="form-control" data-bind="value: date" required>
+            </div>
+            <div>
+                <label for="amountOfSeats">Ilość dostępnych miejsc: </label>
+                <input id="amountOfSeats" type="number" min="1" max="100" value="1" class="form-control" data-bind="value: amountOfSeats" required>
+            </div>
+            <button type="submit">Dodaj</button>
+        </form>
+    </div>
 
     <div class="row" data-bind="foreach:rides">
         <div class="col-md-8">
@@ -113,7 +140,7 @@
                 </tbody>
             </table>
             <div class="col-md-12">
-                <button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}, enable :$root.isLogged && isNotFull() && userJoined()">Dołącz</button>
+                <button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}, enable :$root.isLogged() && isNotFull() && userJoined()">Dołącz</button>
             </div>
         </div>
     </div>

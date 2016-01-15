@@ -7,7 +7,7 @@ const accountKey = "accountData";
 const loginUrl = (login, password) => `/user/login/${login}/password/${password}`;
 const getAllRidesUrl = "/rides/all";
 const joinUrl = (rideId) => `/rides/ride/${rideId}/join`;
-
+const addRideUrl = "/rides/create";
 
 const getTokenValue = () => sessionStorage.getItem(tokenKey);
 const getAccountKey = () => sessionStorage.getItem(accountKey);
@@ -48,11 +48,11 @@ class Ride{
 
 class RideToAdd{
    constructor(){
-       this.from = ko.observable("");
-       this.to = ko.observable("");
-       this.price = ko.observable( 0.0);
-       this.date = ko.observable(new Date());
-       this.amountOfSeats = ko.observable(0);
+       this.from = "";
+       this.to = "";
+       this.price = 0.0;
+       this.date = new Date();
+       this.amountOfSeats = 0;
    }
 }
 
@@ -60,14 +60,30 @@ class RideViewModel{
 
     constructor(){
         this.rideToAdd = ko.observable(new RideToAdd());
-        this.rides = ko.observable([]);
-
+        this.rides = ko.observableArray([]);
         this.isLogged = ko.computed(() => {
             return getTokenValue() != null
         });
-
         this.getAll();
         this.bind();
+    }
+
+    add(){
+        console.log(this.rideToAdd());
+        $.ajax({
+            url:addRideUrl,
+            type:"POST",
+            contentType: "application/json;charset=utf-8",
+            headers: { "Authorization": getTokenValue() },
+            data: ko.mapping.toJSON(this.rideToAdd()),
+            success: (result) => {
+                const resultData = JSON.parse(result);
+                if(resultData.isSuccess){
+                    console.log("sukces")
+                    this.rides.push(new Ride(resultData.value))
+                }
+            }
+        });
     }
 
     getAll(){
@@ -100,6 +116,9 @@ class RideViewModel{
                         }
                     }));
                 }
+            },
+            error: (error) => {
+                console.error(error);
             }
         });
     }
@@ -121,12 +140,12 @@ class UserViewModel{
 
     loginUser(){
         $.getJSON(loginUrl(this.login(), this.password()), (data) => {
-            console.log(data);
             if(data.isSuccess){
                 sessionStorage.setItem(tokenKey, data.value);
                 sessionStorage.setItem(accountKey, this.login());
                 this.isNotLogged(!this.checkCredentials());
                 this.isLogged(this.checkCredentials());
+                window.location.reload();
             }
         });
     }
@@ -140,6 +159,7 @@ class UserViewModel{
         sessionStorage.clear(tokenKey);
         this.isNotLogged(!this.checkCredentials());
         this.isLogged(this.checkCredentials());
+        window.location.reload();
     }
 
     checkCredentials(){

@@ -21,5 +21,6 @@ public class DataGenerator {
         rides = new LinkedList<>();
         rides.add(new Ride(Ride.getIdentityId(), persons.get(0), "Warszawa", "Kielce", 21.1, new Date(), 5));
         rides.add(new Ride(Ride.getIdentityId(), persons.get(1), "Lódź", "Katowice", 11, new Date(), 2));
+        rides.add(new Ride(Ride.getIdentityId(), persons.get(2), "Lódź", "Stryków", 111, new Date(), 2));
     }
 }
