@@ -3,6 +3,7 @@ package repositories;
 import entities.Person;
 import entities.Result;
 import utils.MyStaticDataBase;
+import utils.XmlDataManager;
 
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class PersonRepository extends BaseRepository implements IPersonRepositor
         if (password.equals(confirmPassword) && getDataBase().getPersons().parallelStream().filter(person -> person.getEmail().equals(userName)).toArray().length == 0){
             Person personToAdd = new Person(Person.getIdentityId(), null, null, userName , password);
             getDataBase().getPersons().add(personToAdd);
+            XmlDataManager.saveChanges(getDataBase());
             return new Result<>(personToAdd);
         }
         return new Result<>();
@@ -45,6 +47,7 @@ public class PersonRepository extends BaseRepository implements IPersonRepositor
                 return person1;
             }
         }).collect(Collectors.toList()));
+        XmlDataManager.saveChanges(getDataBase());
         return new Result<>(person);
     }
 

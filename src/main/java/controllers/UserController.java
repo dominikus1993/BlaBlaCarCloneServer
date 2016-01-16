@@ -9,6 +9,7 @@ import spark.Request;
 import spark.Response;
 import com.google.gson.Gson;
 import utils.UserUtils;
+import utils.XmlDataManager;
 
 import javax.jws.soap.SOAPBinding;
 
@@ -25,16 +26,16 @@ public class UserController extends BaseController {
         this.gson = new Gson();
     }
 
-    public String Login(Request request, Response response) {
+    public String login(Request request, Response response) {
         Result<Person> person = repository.Login(request.params(":login"), request.params(":password"));
         if (person.isSuccess()) {
-            response.cookie("Login", person.getValue().getEmail());
+            response.cookie("login", person.getValue().getEmail());
             return gson.toJson(getAuthenticationRepository().create(person.getValue()));
         }
         return gson.toJson(new Result<>(false, true, Result.CreateMessagesList("Invalid password or username")));
     }
 
-    public String Register(Request request, Response response) {
+    public String register(Request request, Response response) {
         try{
             RegisterUser user = gson.fromJson(request.body(), RegisterUser.class);
             Result<Person> personResult = repository.Register(user.getUsername(), user.getPassword(), user.getConfirmPassword());
@@ -42,7 +43,6 @@ public class UserController extends BaseController {
         }catch(Exception ex){
             return gson.toJson(new Result<>(false, true , Result.CreateMessagesList("Invlid data format")));
         }
-
     }
 
 }

@@ -6,6 +6,11 @@ import spark.Request;
 import utils.MyStaticDataBase;
 import utils.UserUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 /**
  * Created by dominik.kotecki on 04-01-2016.
  */
@@ -19,6 +24,16 @@ public class AuthenticationRepository extends BaseRepository implements IAuthent
     public Result<Person> findByToken(Request request) {
         String token = request.headers("Authorization");
         return new Result<>(getDataBase().getAuthTokens().get(token));
+    }
+
+    @Override
+    public boolean delete(Request request){
+        String token = request.headers("Authorization");
+        getDataBase().setAuthTokens((HashMap<String, Person>) getDataBase().getAuthTokens().entrySet()
+                .parallelStream()
+                .filter(e -> !e.getKey().equals(token))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+        return true;
     }
 
     @Override

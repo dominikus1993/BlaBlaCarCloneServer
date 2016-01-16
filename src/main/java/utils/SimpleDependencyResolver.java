@@ -8,7 +8,7 @@ import repositories.*;
  */
 public class SimpleDependencyResolver {
 
-    private final static MyStaticDataBase dataBase = new MyStaticDataBase(DataGenerator.persons, DataGenerator.rides);
+    private final static MyStaticDataBase dataBase = XmlDataManager.loadChanges();
 
     public static MyStaticDataBase getMyStaticDataBase(){
         return dataBase;

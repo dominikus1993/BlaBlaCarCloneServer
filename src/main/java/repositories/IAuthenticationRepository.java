@@ -9,5 +9,6 @@ import spark.Request;
  */
 public interface IAuthenticationRepository {
     Result<Person> findByToken(Request request);
+    boolean delete(Request request);
     Result<String> create(Person person);
 }

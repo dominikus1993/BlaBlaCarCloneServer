@@ -2,7 +2,14 @@ package entities;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.Expose;
+import utils.PersonAdapter;
+import utils.RideAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -12,31 +19,42 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by dominik.kotecki on 28-12-2015.
  */
-public class Ride implements Serializable{
+@XmlJavaTypeAdapter(RideAdapter.class)
+@XmlAccessorType(XmlAccessType.NONE)
+public final class Ride implements Serializable{
     private static AtomicInteger identity = new AtomicInteger(0);
 
     @Expose
-    private final int id;
-
-    @Expose
-    private final Person owner;
-
-    @Expose
+    @XmlAttribute
     private final String from;
 
     @Expose
+    @XmlAttribute
     private final String to;
 
     @Expose
+    @XmlAttribute
     private final double price;
 
+
     @Expose
+    @XmlAttribute
+    private final int id;
+
+    @Expose
+    @XmlElement
+    private final Person owner;
+
+    @Expose
+    @XmlElement
     private final Date date;
 
     @Expose
+    @XmlAttribute
     private final int amountOfSeats;
 
     @Expose
+    @XmlElement
     private final ImmutableList<Person> persons;
 
 
@@ -53,6 +71,29 @@ public class Ride implements Serializable{
 
     public Ride(int id, Person owner, String from, String to, double price, Date date, int amountOfSeats) {
         this.id = id;
+        this.owner = owner;
+        this.from = from;
+        this.to = to;
+        this.price = price;
+        this.date = date;
+        this.amountOfSeats = amountOfSeats;
+        this.persons = ImmutableList.copyOf(new LinkedList<>());
+    }
+
+
+    public Ride(Person owner, String from, String to, double price, Date date, int amountOfSeats, List<Person> persons) {
+        this.id = identity.incrementAndGet();
+        this.owner = owner;
+        this.from = from;
+        this.to = to;
+        this.price = price;
+        this.date = date;
+        this.amountOfSeats = amountOfSeats;
+        this.persons = persons == null?ImmutableList.copyOf(new LinkedList<>()):ImmutableList.copyOf(persons);
+    }
+
+    public Ride(Person owner, String from, String to, double price, Date date, int amountOfSeats) {
+        this.id = identity.incrementAndGet();
         this.owner = owner;
         this.from = from;
         this.to = to;

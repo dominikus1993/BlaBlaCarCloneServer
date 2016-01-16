@@ -2,9 +2,6 @@ package utils;
 
 import controllers.RideController;
 import controllers.UserController;
-import entities.Person;
-import repositories.IPersonRepository;
-import spark.Request;
 
 import static spark.Spark.*;
 
@@ -22,8 +19,8 @@ public class SetUpRoutes {
 
     public void setUp(){
         //User
-        get("/user/login/:login/password/:password", (userController::Login));
-        post("/user/register", userController::Register);
+        get("/user/login/:login/password/:password", (userController::login));
+        post("/user/register", userController::register);
 
         //Rides
         get("/rides/all", rideController::get);

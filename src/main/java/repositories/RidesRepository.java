@@ -5,6 +5,7 @@ import entities.Result;
 import entities.Ride;
 import entities.UpdateRide;
 import utils.MyStaticDataBase;
+import utils.XmlDataManager;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
     @Override
     public synchronized Result<Ride> create(Ride ride) {
         getDataBase().getRides().add(ride);
+        XmlDataManager.saveChanges(getDataBase());
         return new Result<>(ride);
     }
 
@@ -38,7 +40,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
             }
             return ride1;
         }).collect(Collectors.toList()));
-
+        XmlDataManager.saveChanges(getDataBase());
         try{
             return new Result<>(getDataBase().getRides().parallelStream().filter(x -> x.getId() == ride.getId()).findAny().get());
         }catch (Exception ex){
@@ -59,6 +61,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
     public Result<Boolean> delete(int id) {
         try{
             Ride rideToRemove = getDataBase().getRides().parallelStream().filter(x -> x.getId() == id).findAny().get();
+            XmlDataManager.saveChanges(getDataBase());
             return new Result<>(getDataBase().getRides().remove(rideToRemove));
         }catch(Exception ex){
             return new Result<>();
@@ -80,6 +83,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
                         return ride1;
                     }
                 }).collect(Collectors.toList()));
+                XmlDataManager.saveChanges(getDataBase());
                 return new Result<>(getDataBase().getRides().parallelStream().filter(x -> x.getId() == id).findAny().get());
             }
         }catch (Exception ex){
@@ -103,6 +107,7 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
                         return ride1;
                     }
                 }).collect(Collectors.toList()));
+                XmlDataManager.saveChanges(getDataBase());
                 return new Result<>(getDataBase().getRides().parallelStream().filter(x -> x.getId() == id).findAny().get());
             }
         }catch (Exception ex){

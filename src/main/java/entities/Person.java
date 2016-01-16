@@ -2,7 +2,13 @@ package entities;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.Expose;
+import utils.PersonAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,24 +17,32 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by dominik.kotecki on 28-12-2015.
  */
-public class Person implements Serializable {
+@XmlJavaTypeAdapter(PersonAdapter.class)
+@XmlAccessorType(XmlAccessType.NONE)
+public final class Person implements Serializable {
     private static AtomicInteger identity = new AtomicInteger(0);
 
     @Expose
+    @XmlAttribute
     private final int id;
 
     @Expose
+    @XmlAttribute
     private final String firstName;
 
     @Expose
+    @XmlAttribute
     private final String lastName;
 
     @Expose
+    @XmlAttribute
     private final String email;
 
+    @XmlAttribute
     private final String password;
 
     @Expose
+    @XmlElement
     private final ImmutableList<Ride> rides;
 
     public Person(int id, String firstName, String lastName, String email,String password) {
@@ -55,7 +69,7 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.rides = ImmutableList.copyOf(rides);
+        this.rides = rides == null? ImmutableList.copyOf(new LinkedList<>()):ImmutableList.copyOf(rides);
     }
 
     public Person(String firstName, String lastName, String email, String password) {
@@ -66,6 +80,7 @@ public class Person implements Serializable {
         this.password = password;
         this.rides = ImmutableList.of();
     }
+
 
     public int getId() {
         return id;
