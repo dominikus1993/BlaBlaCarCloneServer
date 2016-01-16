@@ -104,6 +104,25 @@ public class RideController extends BaseController{
 
     }
 
+    public String unJoin(Request request, Response response){
+        try{
+            Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
+            if (authenticatedUser.isSuccess()){
+                final int rideId = Integer.parseInt(request.params(":id"));
+                final int personId = authenticatedUser.getValue().getId();
+                response.status(200);
+                return gson.toJson(ridesRepository.unJoin(rideId,personId));
+            }else{
+                response.status(404);
+                return gson.toJson(Result.Error("Unauthorized access"));
+            }
+        }catch(Exception ex){
+            response.status(404);
+            return gson.toJson(Result.Error("Bad Request"));
+        }
+
+    }
+
     private boolean isAuthenticated(Request request){
         Result<Person> authenticatedUser = getAuthenticationRepository().findByToken(request);
         return authenticatedUser.isSuccess();

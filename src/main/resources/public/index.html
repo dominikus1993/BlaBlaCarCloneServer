@@ -140,7 +140,8 @@
                 </tbody>
             </table>
             <div class="col-md-12">
-                <button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}, enable :$root.isLogged() && isNotFull() && userJoined()">Dołącz</button>
+                <button class="btn btn-info" data-bind="click: function(data){$root.join(data.id);}, visible :$root.isLogged() && isNotFull() && userJoined()">Dołącz</button>
+                <button class="btn btn-info" data-bind="click: function(data){$root.unJoin(data.id);}, visible :$root.isLogged() && !userJoined()">Wyjdz</button>
             </div>
         </div>
     </div>

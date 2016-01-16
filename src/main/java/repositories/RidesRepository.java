@@ -66,6 +66,29 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
     }
 
     @Override
+    public Result<Ride> unJoin(int id, int personId) {
+        try{
+            Ride ride = getDataBase().getRides().parallelStream().filter(x -> x.getId() == id).findAny().get();
+            boolean isPassenger = !ride.getPersons().parallelStream().noneMatch(x -> x.getId() == personId);
+            if (isPassenger && ride.getPersons().size() <= ride.getAmountOfSeats()){
+                getDataBase().setRides(getDataBase().getRides().stream().map(ride1 -> {
+                    if (ride1.getId() == id){
+                        Person person = getDataBase().getPersons().parallelStream().filter(x -> x.getId() == personId).findAny().get();
+                        return new Ride(ride1.getId(),ride1.getOwner(),ride1.getFrom(), ride1.getTo(), ride1.getAmountOfSeats(), ride1.getDate(), ride1.getAmountOfSeats(), ride1.getPersons().stream().filter(x -> x.getId() != person.getId()).collect(Collectors.toList()));
+                    }
+                    else {
+                        return ride1;
+                    }
+                }).collect(Collectors.toList()));
+                return new Result<>(getDataBase().getRides().parallelStream().filter(x -> x.getId() == id).findAny().get());
+            }
+        }catch (Exception ex){
+            return Result.Error("Error");
+        }
+        return Result.Error("Error");
+    }
+
+    @Override
     public Result<Ride> join(int id, int personId) {
         try{
             Ride ride = getDataBase().getRides().parallelStream().filter(x -> x.getId() == id).findAny().get();
@@ -86,11 +109,6 @@ public class RidesRepository extends BaseRepository implements IRidesRepository 
             return Result.Error("Error");
         }
         return Result.Error("Error");
-    }
-
-    @Override
-    public Result<Ride> unJoin(int id, int personId) {
-        return null;
     }
 
 }

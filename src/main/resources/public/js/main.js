@@ -7,6 +7,7 @@ const accountKey = "accountData";
 const loginUrl = (login, password) => `/user/login/${login}/password/${password}`;
 const getAllRidesUrl = "/rides/all";
 const joinUrl = (rideId) => `/rides/ride/${rideId}/join`;
+const unJoinUrl = (rideId) => `/rides/ride/${rideId}/unJoin`;
 const addRideUrl = "/rides/create";
 
 const getTokenValue = () => sessionStorage.getItem(tokenKey);
@@ -81,6 +82,8 @@ class RideViewModel{
                 if(resultData.isSuccess){
                     console.log("sukces")
                     this.rides.push(new Ride(resultData.value))
+                    alert("Pomyślnie dodano trase");
+                    this.rideToAdd(new RideToAdd());
                 }
             }
         });
@@ -101,6 +104,32 @@ class RideViewModel{
 
         $.ajax({
             url: joinUrl(rideId),
+            type:"GET",
+            contentType: "application/json;charset=utf-8",
+            headers: { "Authorization": getTokenValue() },
+            success : (data) => {
+                const jsonData = JSON.parse(data);
+                if(jsonData.isSuccess){
+                    this.rides(_.map(this.rides(), (ride) => {
+                        if(ride.id == jsonData.value.id){
+                            return new Ride(jsonData.value);
+                        }
+                        else{
+                            return ride;
+                        }
+                    }));
+                }
+            },
+            error: (error) => {
+                console.error(error);
+            }
+        });
+    }
+
+    unJoin(rideId){
+        console.log("no przeciez przesuniety jestem");
+        $.ajax({
+            url: unJoinUrl(rideId),
             type:"GET",
             contentType: "application/json;charset=utf-8",
             headers: { "Authorization": getTokenValue() },
