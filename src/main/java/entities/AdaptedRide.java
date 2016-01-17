@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.Expose;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by domin_000 on 16.01.2016.
@@ -23,7 +24,7 @@ public class AdaptedRide {
 
     private int amountOfSeats;
 
-    private ImmutableList<Person> persons;
+    private List<Person> persons;
 
     public String getFrom() {
         return from;
@@ -81,11 +82,11 @@ public class AdaptedRide {
         this.amountOfSeats = amountOfSeats;
     }
 
-    public ImmutableList<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(ImmutableList<Person> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 }

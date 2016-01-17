@@ -78,7 +78,7 @@ public final class Person implements Serializable {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.rides = ImmutableList.of();
+        this.rides = ImmutableList.copyOf(new LinkedList<Ride>());
     }
 
 

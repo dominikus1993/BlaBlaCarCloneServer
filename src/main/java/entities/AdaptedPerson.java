@@ -3,6 +3,8 @@ package entities;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.Expose;
 
+import java.util.List;
+
 /**
  * Created by domin_000 on 16.01.2016.
  */
@@ -18,7 +20,7 @@ public class AdaptedPerson {
 
     private String password;
 
-    private ImmutableList<Ride> rides;
+    private List<Ride> rides;
 
     public int getId() {
         return id;
@@ -60,11 +62,11 @@ public class AdaptedPerson {
         this.password = password;
     }
 
-    public ImmutableList<Ride> getRides() {
+    public List<Ride> getRides() {
         return rides;
     }
 
-    public void setRides(ImmutableList<Ride> rides) {
+    public void setRides(List<Ride> rides) {
         this.rides = rides;
     }
 }

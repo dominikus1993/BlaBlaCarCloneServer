@@ -17,8 +17,6 @@
             <a href="index.html" class="navbar-brand">Travel assistant</a>
         </div>
         <div id="loginPanel" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-            </ul>
             <ul class="nav navbar-nav navbar-right" id="logOff">
                 <li style="color: white;" data-bind="visible: isLogged"><a href="#">Witaj! <i
                         data-bind="text: login"></i></a></li>
@@ -46,7 +44,7 @@
 <h1>BlablaCar</h1>
 
 <div class="container" id="rides">
-
+    <button class="text-center btn btn-info" data-bind="click:getAll">Odśwież</button>
     <div class="row" data-bind="visible: isLogged">
         <form class="col-md-12" data-bind="submit:add, with: rideToAdd">
             <div>
@@ -112,14 +110,14 @@
                 <caption>Pasażerowie</caption>
                 <thead>
                 <tr>
-                    <th>Email</th>
-                    <th>Id</th>
+                    <th>Imie</th>
+                    <th>Nazwisko</th>
                 </tr>
                 </thead>
                 <tbody data-bind="foreach:persons">
                 <tr>
-                    <th scope="row" data-bind="text:id">Odjazd z: </th>
-                    <td data-bind="text: email">Mark</td>
+                    <th data-bind="text:firstName">Odjazd z: </th>
+                    <td data-bind="text: lastName">Mark</td>
                 </tr>
                 </tbody>
             </table>
@@ -128,8 +126,8 @@
                 <caption>Pasażerowie</caption>
                 <thead>
                 <tr>
-                    <th>Email</th>
-                    <th>Id</th>
+                    <th>Imie</th>
+                    <th>Nazwisko</th>
                 </tr>
                 </thead>
                 <tbody>
